@@ -1,6 +1,6 @@
 // Configuração da planilha do Google Sheets
 // IMPORTANTE: Substitua esta URL pela URL da sua planilha publicada como CSV
-const GOOGLE_SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/1K4q1mBF_rzm103Dq2b-GOspBLTOEN4P36yYPXdsfVX8/';
+const GOOGLE_SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/1QIgG7oeHhyIrdlzWAb5jv3Ru_305UJ0xoZniGgQGP9M/edit?usp=sharing';
 
 // Dados de exemplo para demonstração (serão usados se a planilha não estiver configurada)
 const EXAMPLE_PRODUCTS = [
