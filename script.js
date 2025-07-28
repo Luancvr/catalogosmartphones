@@ -1,6 +1,6 @@
 // Configuração da planilha do Google Sheets
 // IMPORTANTE: Substitua esta URL pela URL da sua planilha publicada como CSV
-const GOOGLE_SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/1QIgG7oeHhyIrdlzWAb5jv3Ru_305UJ0xoZniGgQGP9M/edit?usp=sharing';
+const GOOGLE_SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/1QIgG7oeHhyIrdlzWAb5jv3Ru_305UJ0xoZniGgQGP9M/export?format=csv&gid=0';
 
 // Dados de exemplo para demonstração (serão usados se a planilha não estiver configurada)
 const EXAMPLE_PRODUCTS = [
@@ -140,7 +140,7 @@ function createProductCard(product, index) {
             <img src="${product.Imagem || product.imagem || 'https://via.placeholder.com/300x200?text=Sem+Imagem'}" 
                  alt="${product.Nome || product.nome || 'Produto'}" 
                  class="product-image"
-                 onerror="this.src='https://via.placeholder.com/300x200?text=Sem+Imagem'">
+                 onerror="this.src='https://via.placeholder.com/300x200?text=Sem+Imagem'}">
             <div class="specs-overlay">
                 ${ram ? `<div class="spec-badge ram"><i class="fas fa-memory"></i> ${ram}</div>` : ''}
                 ${storage ? `<div class="spec-badge storage"><i class="fas fa-hdd"></i> ${storage}</div>` : ''}
