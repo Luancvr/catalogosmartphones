@@ -2,7 +2,7 @@
 // IMPORTANTE: Substitua estas URLs pelas URLs das suas planilhas publicadas como CSV
 const SHEET_URLS = {
     0: 'https://docs.google.com/spreadsheets/d/1QIgG7oeHhyIrdlzWAb5jv3Ru_305UJ0xoZniGgQGP9M/export?format=csv&gid=0', // iPhones
-    1: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSHdgSqrc0KGJart9S6e3Zfy6P8xlcqG0oUy8j34Hx0kFcNPOyTklbKmqOZlibIYKbscOLWf6ycNDd4/pub?output=csv' // Androids
+    1: 'https://docs.google.com/spreadsheets/d/11XASCJd_fl6B-FPAYND83Xf8wfreLvsCcogHo9Oy5k4/export?format=csv&gid=0' // Androids
 };
 
 // Planilha ativa atual
