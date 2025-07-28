@@ -1,6 +1,12 @@
-// Configuração da planilha do Google Sheets
-// IMPORTANTE: Substitua esta URL pela URL da sua planilha publicada como CSV
-const GOOGLE_SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/1QIgG7oeHhyIrdlzWAb5jv3Ru_305UJ0xoZniGgQGP9M/export?format=csv&gid=0';
+// Configuração das planilhas do Google Sheets
+// IMPORTANTE: Substitua estas URLs pelas URLs das suas planilhas publicadas como CSV
+const SHEET_URLS = {
+    0: 'https://docs.google.com/spreadsheets/d/1QIgG7oeHhyIrdlzWAb5jv3Ru_305UJ0xoZniGgQGP9M/export?format=csv&gid=0', // iPhones
+    1: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSHdgSqrc0KGJart9S6e3Zfy6P8xlcqG0oUy8j34Hx0kFcNPOyTklbKmqOZlibIYKbscOLWf6ycNDd4/pub?output=csv' // Androids
+};
+
+// Planilha ativa atual
+let currentSheetId = 0;
 
 // Dados de exemplo para demonstração (serão usados se a planilha não estiver configurada)
 const EXAMPLE_PRODUCTS = [
@@ -33,22 +39,66 @@ const EXAMPLE_PRODUCTS = [
     }
 ];
 
+// Função para obter produtos de exemplo baseado na planilha selecionada
+function getExampleProducts(sheetId) {
+    if (sheetId === 1) {
+        // Produtos Android de exemplo
+        return [
+            {
+                Nome: "Samsung Galaxy S24",
+                Imagem: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=300",
+                Descricao: "Android flagship com IA avançada",
+                Preco: "R$ 5.499,00",
+                Parcelas: "10x de R$ 549,90",
+                RAM: "12GB",
+                Armazenamento: "512GB"
+            },
+            {
+                Nome: "Xiaomi Redmi Note 13",
+                Imagem: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=300",
+                Descricao: "Custo-benefício excepcional",
+                Preco: "R$ 1.299,00",
+                Parcelas: "6x de R$ 216,50",
+                RAM: "6GB",
+                Armazenamento: "128GB"
+            },
+            {
+                Nome: "Google Pixel 8",
+                Imagem: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=300",
+                Descricao: "Android puro com melhor câmera",
+                Preco: "R$ 3.999,00",
+                Parcelas: "8x de R$ 499,88",
+                RAM: "8GB",
+                Armazenamento: "256GB"
+            }
+        ];
+    } else {
+        // Produtos iPhone de exemplo (planilha 0)
+        return EXAMPLE_PRODUCTS;
+    }
+}
+
 // Função para buscar dados do Google Sheets
-async function fetchProductsData() {
+async function fetchProductsData(sheetId = currentSheetId) {
     try {
         showLoading(true);
         
         let products = [];
+        const sheetUrl = SHEET_URLS[sheetId];
         
         // Primeiro tenta a URL configurada, se falhar usa os dados de exemplo
         try {
-            const response = await fetch(GOOGLE_SHEETS_CSV_URL);
-            if (!response.ok) throw new Error('Planilha não encontrada');
-            const csvText = await response.text();
-            products = parseCSV(csvText);
+            if (sheetUrl && !sheetUrl.includes('SEU_ID_DA_PLANILHA')) {
+                const response = await fetch(sheetUrl);
+                if (!response.ok) throw new Error('Planilha não encontrada');
+                const csvText = await response.text();
+                products = parseCSV(csvText);
+            } else {
+                throw new Error('URL da planilha não configurada');
+            }
         } catch (error) {
             console.log('Usando dados de exemplo...');
-            products = EXAMPLE_PRODUCTS;
+            products = getExampleProducts(sheetId);
         }
         
         if (products.length === 0) {
@@ -205,6 +255,7 @@ function showError() {
 
 // Inicialização quando a página carrega
 document.addEventListener('DOMContentLoaded', function() {
+    initializeSheetButtons();
     fetchProductsData();
 });
 
@@ -215,4 +266,30 @@ function reloadProducts() {
 
 // Exporta funções para uso global
 window.reloadProducts = reloadProducts;
+
+
+
+// Função para trocar de planilha
+function switchSheet(sheetId) {
+    currentSheetId = sheetId;
+    
+    // Atualizar botões ativos
+    document.querySelectorAll('.sheet-selection .btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.querySelector(`[data-sheet-id="${sheetId}"]`).classList.add('active');
+    
+    // Carregar dados da nova planilha
+    fetchProductsData(sheetId);
+}
+
+// Função para inicializar os event listeners dos botões
+function initializeSheetButtons() {
+    document.querySelectorAll('.sheet-selection .btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const sheetId = parseInt(btn.getAttribute('data-sheet-id'));
+            switchSheet(sheetId);
+        });
+    });
+}
 
