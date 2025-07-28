@@ -154,7 +154,7 @@ body {
 }
 
 .product-name {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
     color: #2c3e50;
@@ -162,7 +162,7 @@ body {
 
 .product-description {
     color: #7f8c8d;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     margin-bottom: 1rem;
     line-height: 1.5;
 }
@@ -259,15 +259,15 @@ body {
     }
     
     .product-info {
-        padding: 1rem;
+        padding: 1.1rem;
     }
     
     .product-name {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
     
     .price-main {
-        font-size: 1.5rem;
+        font-size: 1.7rem;
     }
 }
 
