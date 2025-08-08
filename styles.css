@@ -341,7 +341,7 @@ body {
 
 
 .header-logo {
-    max-width: 400px; /* Aumentado de 250px para 400px */
+    max-width: 600px;
     width: 100%;
     height: auto;
     margin-bottom: 1rem;
@@ -352,13 +352,13 @@ body {
 
 @media (max-width: 768px) {
     .header-logo {
-        max-width: 300px; /* Tamanho médio para tablets */
+        max-width: 500px; /* Tamanho médio para tablets */
     }
 }
 
 @media (max-width: 480px) {
     .header-logo {
-        max-width: 250px; /* Tamanho menor para celulares */
+        max-width: 400px; /* Tamanho menor para celulares */
         margin-bottom: 0.8rem;
     }
 }
